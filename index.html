@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="gu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#14263d">
+  <meta name="description" content="Meet Fabrication & CNC — Ready items, fabrication and CNC plasma cutting services.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+  <title>Meet Fabrication & CNC</title>
+</head>
+<body>
+<header class="topbar">
+  <div class="brandmark">MF</div>
+  <div class="brand"><h1>Meet Fabrication & CNC</h1><p>Fabrication • Ready Items • CNC Plasma Cutting</p></div>
+  <button id="installBtn" class="outline hidden">Install App</button>
+</header>
+<div class="notice"><strong>Supabase:</strong> પહેલાં supabase-config.js માં Project URL અને Publishable key મૂકો. service_role/secret key ક્યારેય અહીં ન મૂકો.</div>
+<nav class="tabs" aria-label="Main navigation">
+  <button class="tab active" data-page="shop">Shop</button>
+  <button class="tab" data-page="cart">Cart <span id="cartCount" class="count">0</span></button>
+  <button class="tab" data-page="orders">My Orders</button>
+  <button class="tab" data-page="account">Account</button>
+  <button class="tab" data-page="admin">Admin</button>
+</nav>
+<main>
+  <section id="page-shop" class="page">
+    <div class="hero">
+      <div><span class="eyebrow">MADE FOR YOUR WORKSHOP</span><h2>તમારા કામ માટે<br>મજબૂત ઉકેલ.</h2><p>ફેબ્રિકેશન પ્રોડક્ટ્સ અને CNC પ્લાઝ્મા કટિંગ સર્વિસ માટે ઓર્ડર કરો.</p><button class="primary" id="browseBtn">પ્રોડક્ટ જુઓ ↓</button></div>
+      <div class="hero-art" aria-hidden="true"><div class="ring"></div><div class="plate">MF<span>PRECISION CUT</span></div><div class="spark">✦</div></div>
+    </div>
+    <div class="section-head"><div><span class="eyebrow">OUR CATALOG</span><h2>પ્રોડક્ટ્સ અને સર્વિસ</h2></div><input id="searchBox" type="search" placeholder="પ્રોડક્ટ શોધો…" aria-label="Search products"></div>
+    <div class="filters" id="filters">
+      <button class="filter active" data-category="All">બધા</button>
+      <button class="filter" data-category="Ready Items">Ready Items</button>
+      <button class="filter" data-category="CNC Service">CNC Cutting</button>
+      <button class="filter" data-category="Fabrication">Fabrication</button>
+    </div>
+    <div id="productGrid" class="product-grid"></div>
+  </section>
+  <section id="page-cart" class="page hidden"><div class="section-head"><div><span class="eyebrow">YOUR SELECTION</span><h2>તમારો Cart</h2></div></div><div id="cartContent"></div></section>
+  <section id="page-orders" class="page hidden"><div class="section-head"><div><span class="eyebrow">ORDER HISTORY</span><h2>તમારા ઓર્ડર</h2></div></div><div id="ordersContent"></div></section>
+  <section id="page-account" class="page hidden"><div class="section-head"><div><span class="eyebrow">YOUR PROFILE</span><h2>એકાઉન્ટ</h2></div></div>
+    <div class="panel account-panel">
+      <div id="signedOut">
+        <p class="muted">તમારા Supabase એકાઉન્ટથી Login કરો.</p>
+        <label>ઈમેઇલ<input id="authEmail" type="email" autocomplete="email" required placeholder="તમારું ઈમેઇલ"></label>
+        <label>પાસવર્ડ<input id="authPassword" type="password" autocomplete="current-password" required placeholder="પાસવર્ડ"></label>
+        <label>નવું એકાઉન્ટ હોય તો નામ<input id="authName" placeholder="તમારું નામ"></label>
+        <div class="two"><button class="primary" id="loginBtn" type="button">Login</button><button class="outline" id="signupBtn" type="button">નવું એકાઉન્ટ બનાવો</button></div>
+      </div>
+      <div id="signedIn" class="hidden">
+        <p>Login: <strong id="signedEmail"></strong></p><p>Role: <strong id="signedRole">customer</strong></p>
+        <label>તમારું નામ<input id="userName" placeholder="નામ લખો"></label>
+        <label>મોબાઇલ નંબર<input id="userPhone" inputmode="tel" placeholder="10 અંકનો મોબાઇલ નંબર"></label>
+        <button class="primary" id="saveAccount">પ્રોફાઇલ સેવ કરો</button>
+        <button class="outline" id="logoutBtn">Logout</button>
+      </div>
+      <p id="accountMsg" class="success"></p>
+    </div>
+  </section>
+  <section id="page-admin" class="page hidden"><div class="section-head"><div><span class="eyebrow">MANAGE YOUR STORE</span><h2>Admin Panel</h2></div><span class="demo-pill">ADMIN</span></div>
+    <div class="stats"><div class="stat"><span>પ્રોડક્ટ્સ</span><strong id="statProducts">0</strong></div><div class="stat"><span>ઓર્ડર્સ</span><strong id="statOrders">0</strong></div><div class="stat"><span>કુલ ઓર્ડર મૂલ્ય</span><strong id="statRevenue">₹0</strong></div></div>
+    <div class="admin-grid">
+      <div class="panel"><h3>નવો પ્રોડક્ટ ઉમેરો</h3><form id="productForm">
+        <label>પ્રોડક્ટનું નામ<input name="name" required placeholder="જેમ કે Decorative Gate Panel"></label>
+        <label>Category<select name="category"><option>Ready Items</option><option>CNC Service</option><option>Fabrication</option></select></label>
+        <label>વર્ણન<input name="description" placeholder="સાઇઝ / મટીરિયલ"></label>
+        <div class="two"><label>Customer ભાવ (₹)<input name="customerPrice" type="number" min="0" required></label><label>Dealer ભાવ (₹)<input name="dealerPrice" type="number" min="0" required></label></div>
+        <label>ઉપલબ્ધ જથ્થો / સેવા ક્ષમતા<input name="stock" type="number" min="0" value="9999" required><small class="muted">CNC સેવા માટે જરૂર મુજબ ઊંચો જથ્થો રાખી શકો.</small></label>
+        <button class="primary" type="submit">પ્રોડક્ટ ઉમેરો</button>
+      </form></div>
+      <div class="panel"><h3>પ્રોડક્ટ ભાવ મેનેજ કરો</h3><div id="adminProducts"></div></div>
+    </div>
+    <div class="panel order-admin"><h3>બધા ઓર્ડર</h3><div id="adminOrders"></div></div>
+    <button id="resetDemo" class="danger outline">Demo ડેટા ફરી સેટ કરો</button>
+  </section>
+</main>
+<footer><div class="brandmark small">MF</div><div><strong>Meet Fabrication & CNC</strong><p>Jamnagar, Gujarat • Dealer & Customer Shopping</p></div><span class="footer-tag">BUILT FOR PRECISION</span></footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="app.js"></script>
+</body></html>
